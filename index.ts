@@ -1,26 +1,29 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import connectDatabase from '@configs/db.config';
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
-console.log(process.env.PORT);
+const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
 
+// Routes
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'ok' });
 });
 
-app.use((err: any, req: Request, res: Response, next: any) => {
-  const statusCode = err.statusCode || 500;
-  console.error(err.message, err.stack);
-  res.status(statusCode).json({ message: err.message });
-
-  return;
-});
-
-app.listen(+port, '0.0.0.0', () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+// Start server
+async function startServer() {
+  try {
+    await connectDatabase();
+    app.listen(PORT, () =>
+      console.log(`Server running on http://localhost:${PORT}`),
+    );
+  } catch (error) {
+    console.error('Failed to start the server:', error);
+  }
+}
+startServer();
