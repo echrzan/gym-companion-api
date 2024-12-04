@@ -9,7 +9,9 @@
     "dev": "nodemon -r tsconfig-paths/register index.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "author": "",
   "license": "ISC",
