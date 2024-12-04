@@ -12,18 +12,18 @@ app.use(express.json());
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'ok' });
+    res.json({ message: 'ok' });
 });
 
 // Start server
 async function startServer() {
-  try {
-    await connectDatabase();
-    app.listen(PORT, () =>
-      console.log(`Server running on http://localhost:${PORT}`),
-    );
-  } catch (error) {
-    console.error('Failed to start the server:', error);
-  }
+    try {
+        await connectDatabase();
+        app.listen(PORT, () =>
+            console.log(`Server running on http://localhost:${PORT}`)
+        );
+    } catch (error) {
+        console.error('Failed to start the server:', error);
+    }
 }
 startServer();
